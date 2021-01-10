@@ -1,0 +1,17 @@
+# ===========================================================================================
+# Thank you for using the Treasure of El Dorado plugin by Liel Amar.
+# For support, you can contact me through my discord server: https://discord.gg/NzgBrqR.
+#
+# Github: https://github.com/LielAmar/TreasureOfElDorado
+# ===========================================================================================
+
+# How much HP do you need to be able to craft the Treasure of El Dorado (2 points = 1 heart)
+Required HP: 10
+
+# Middle location - The middle of the map, the location where all the treasures are calculated from
+Middle Location:
+  x: 0
+  z: 0
+
+# The radius in which treasures can be spawned (the radius is calculated from the middle location)
+Treasure Radius: 1000
