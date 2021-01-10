@@ -98,6 +98,7 @@ public class Treasure {
                         chest.getInventory().setItem(14, new ItemStack(Material.GOLD_BLOCK));
                         chest.getInventory().setItem(15, health3);
 
+                        setStatus(TreasureStatus.RECEIVED);
                         cancel();
                     }
                 }
@@ -113,8 +114,6 @@ public class Treasure {
         item.setItemMeta(meta);
 
         Potion pot = new Potion(1);
-//        pot.setType(PotionType.INSTANT_HEAL);
-//        pot.setLevel(2);
         pot.setSplash(true);
         pot.apply(item);
 
