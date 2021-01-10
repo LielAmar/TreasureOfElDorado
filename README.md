@@ -1,6 +1,6 @@
 # Treasure of El Dorado
 
-[<img alt="discord" src="https://lielamar.com/other/github_discord.png" size=1.5>](https://discord.gg/NzgBrqR)
+[<img alt="discord" src="https://lielamar.com/cdn/plugins/github_discord.png" size=1.5>](https://discord.gg/NzgBrqR)
 <br>
 
 ## Information
