@@ -6,7 +6,7 @@
 
     <groupId>com.lielamar.toed</groupId>
     <artifactId>TOED</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-test</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -54,6 +54,9 @@
                             <artifactSet>
                                 <includes>
                                     <include>com.lielamar:lielsutils**</include>
+                                    <include>com.google.inject:**</include>
+                                    <include>javax.inject:**</include>
+                                    <include>aopalliance:**</include>
                                 </includes>
                             </artifactSet>
 
@@ -61,6 +64,14 @@
                                 <relocation>
                                     <pattern>com.lielamar.lielsutils</pattern>
                                     <shadedPattern>com.lielamar.toed.lib.lielsutils</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.google.inject</pattern>
+                                    <shadedPattern>com.lielamar.toed.lib.guice</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>javax.inject</pattern>
+                                    <shadedPattern>com.lielamar.toed.lib.javax.inject</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
@@ -88,7 +99,7 @@
         <dependency>
             <groupId>com.lielamar</groupId>
             <artifactId>packetmanager</artifactId>
-            <version>1.1.0</version>
+            <version>1.1.2</version>
             <scope>compile</scope>
         </dependency>
 
@@ -98,6 +109,18 @@
             <version>1.0</version>
             <scope>system</scope>
             <systemPath>${craftbukkit.path}</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>4.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>aopalliance</groupId>
+            <artifactId>aopalliance</artifactId>
+            <version>1.0</version>
         </dependency>
     </dependencies>
 </project>

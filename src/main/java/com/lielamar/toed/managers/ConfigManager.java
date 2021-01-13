@@ -1,5 +1,6 @@
 package com.lielamar.toed.managers;
 
+import com.google.inject.Inject;
 import com.lielamar.lielsutils.files.FileManager;
 import com.lielamar.toed.TreasureOfElDorado;
 import com.lielamar.toed.modules.Direction;
@@ -14,16 +15,19 @@ import java.util.Map;
 public class ConfigManager {
 
     private final TreasureOfElDorado plugin;
-    private final Map<Direction, MapView> directionImages;
+    private final FileManager fileManager;
 
+    private final Map<Direction, MapView> directionImages;
     private final int requiredHP;
     private final double middleX, middleZ;
     private final int radius;
 
-    public ConfigManager(TreasureOfElDorado plugin) {
+    @Inject
+    public ConfigManager(TreasureOfElDorado plugin, FileManager fileManager) {
         this.plugin = plugin;
-        this.directionImages = new HashMap<>();
+        this.fileManager = fileManager;
 
+        this.directionImages = new HashMap<>();
         this.requiredHP = plugin.getConfig().getInt("Required HP");
         this.middleX = plugin.getConfig().getDouble("Middle Location.x");
         this.middleZ = plugin.getConfig().getDouble("Middle Location.z");
@@ -37,7 +41,7 @@ public class ConfigManager {
      */
     @SuppressWarnings("deprecation")
     private void loadDirections() {
-        FileManager.Config config = plugin.getFileManager().getConfig("maps.yml");
+        FileManager.Config config = fileManager.getConfig("maps.yml");
 
         final MapView[] maps = new MapView[9];
 

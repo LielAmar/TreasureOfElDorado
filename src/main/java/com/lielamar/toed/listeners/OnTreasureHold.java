@@ -1,6 +1,7 @@
 package com.lielamar.toed.listeners;
 
-import com.lielamar.toed.TreasureOfElDorado;
+import com.google.inject.Inject;
+import com.lielamar.toed.managers.TreasureManager;
 import com.lielamar.toed.utils.Utilities;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,10 +11,11 @@ import org.bukkit.inventory.ItemStack;
 
 public class OnTreasureHold implements Listener {
 
-    private final TreasureOfElDorado plugin;
+    private final TreasureManager treasureManager;
 
-    public OnTreasureHold(TreasureOfElDorado plugin) {
-        this.plugin = plugin;
+    @Inject
+    public OnTreasureHold(TreasureManager treasureManager) {
+        this.treasureManager = treasureManager;
     }
 
     @EventHandler
@@ -25,12 +27,12 @@ public class OnTreasureHold implements Listener {
 
         if(previousItem != null) {
             if(Utilities.isSimilar(previousItem, Utilities.treasureOfElDoradoItem()))
-                plugin.getTreasureManager().stopTask(player);
+                treasureManager.stopTask(player);
         }
 
         if(newItem != null) {
             if(Utilities.isSimilar(newItem, Utilities.treasureOfElDoradoItem()))
-                plugin.getTreasureManager().startTask(player, plugin.getTreasureManager().getTreasure(newItem));
+                treasureManager.startTask(player, treasureManager.getTreasure(newItem));
         }
     }
 }

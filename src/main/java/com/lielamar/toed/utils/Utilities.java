@@ -5,6 +5,10 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.Potion;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -46,6 +50,20 @@ public class Utilities {
         return toedItem;
     }
 
+    public static ItemStack instantHealth3Item() {
+        ItemStack item = new ItemStack(Material.POTION, 1);
+        PotionMeta meta = (PotionMeta) item.getItemMeta();
+        meta.setDisplayName(ChatColor.AQUA + "Splash Potion of Healing");
+        meta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL, 1, 2), true);
+        item.setItemMeta(meta);
+
+        Potion pot = new Potion(1);
+        pot.setSplash(true);
+        pot.apply(item);
+
+        return item;
+    }
+
     public static ShapedRecipe treasureOfElDoradoRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(treasureOfElDoradoCraftItem());
         recipe.shape(" R ", "WCW", "S S");
@@ -56,4 +74,5 @@ public class Utilities {
 
         return recipe;
     }
+
 }

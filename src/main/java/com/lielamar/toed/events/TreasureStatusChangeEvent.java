@@ -12,6 +12,7 @@ public class TreasureStatusChangeEvent extends Event implements Cancellable {
      */
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
+    
     private final Treasure treasure;
     private final Treasure.TreasureStatus oldStatus;
     private Treasure.TreasureStatus newStatus;

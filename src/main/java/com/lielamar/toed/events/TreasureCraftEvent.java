@@ -12,6 +12,7 @@ public class TreasureCraftEvent extends Event implements Cancellable {
      */
 
     private static final HandlerList HANDLERS_LIST = new HandlerList();
+
     private Treasure treasure;
     private boolean cancelled;
 

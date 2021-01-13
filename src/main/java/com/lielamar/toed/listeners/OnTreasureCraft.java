@@ -1,7 +1,9 @@
 package com.lielamar.toed.listeners;
 
-import com.lielamar.toed.TreasureOfElDorado;
+import com.google.inject.Inject;
 import com.lielamar.toed.events.TreasureCraftEvent;
+import com.lielamar.toed.managers.ConfigManager;
+import com.lielamar.toed.managers.TreasureManager;
 import com.lielamar.toed.modules.Treasure;
 import com.lielamar.toed.utils.Utilities;
 import net.minecraft.server.v1_8_R3.NBTTagCompound;
@@ -18,10 +20,13 @@ import org.bukkit.inventory.ItemStack;
 
 public class OnTreasureCraft implements Listener {
 
-    private final TreasureOfElDorado plugin;
+    private final ConfigManager configManager;
+    private final TreasureManager treasureManager;
 
-    public OnTreasureCraft(TreasureOfElDorado plugin) {
-        this.plugin = plugin;
+    @Inject
+    public OnTreasureCraft(ConfigManager configManager, TreasureManager treasureManager) {
+        this.configManager = configManager;
+        this.treasureManager = treasureManager;
     }
 
     @EventHandler
@@ -42,18 +47,18 @@ public class OnTreasureCraft implements Listener {
          */
         if(event.getSlotType() == InventoryType.SlotType.RESULT) {
             if(Utilities.isSimilar(event.getCurrentItem(), Utilities.treasureOfElDoradoCraftItem())) {
-                if(event.getWhoClicked().getHealth() > plugin.getConfigManager().getRequiredHP()) {
+                if(event.getWhoClicked().getHealth() > configManager.getRequiredHP()) {
                     event.setCancelled(true);
                     event.getWhoClicked().sendMessage(ChatColor.RED + "This item can only be crafted below 5 hearts!");
                 } else {
-                    Treasure treasure = plugin.getTreasureManager().generateTreasure((Player)event.getWhoClicked());
+                    Treasure treasure = treasureManager.generateTreasure((Player)event.getWhoClicked());
                     TreasureCraftEvent craftEvent = new TreasureCraftEvent(treasure);
                     Bukkit.getPluginManager().callEvent(craftEvent);
 
                     if(craftEvent.isCancelled()) return;
 
                     treasure = craftEvent.getTreasure();
-                    plugin.getTreasureManager().registerTreasure(treasure, (Player)event.getWhoClicked());
+                    treasureManager.registerTreasure(treasure, (Player)event.getWhoClicked());
 
                     ItemStack item = Utilities.treasureOfElDoradoItem();
 
@@ -67,8 +72,6 @@ public class OnTreasureCraft implements Listener {
                     item = CraftItemStack.asCraftMirror(nmsItem);
 
                     event.setCurrentItem(item);
-
-                    event.getWhoClicked().sendMessage(treasure.getDestinationLocation().getX() + ", " + treasure.getDestinationLocation().getY() + ", " + treasure.getDestinationLocation().getZ());
                 }
             }
         }

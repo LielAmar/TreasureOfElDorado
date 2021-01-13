@@ -1,5 +1,7 @@
 package com.lielamar.toed;
 
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.lielamar.lielsutils.files.FileManager;
 import com.lielamar.toed.listeners.*;
 import com.lielamar.toed.managers.ConfigManager;
@@ -11,37 +13,37 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class TreasureOfElDorado extends JavaPlugin {
 
-    private FileManager fileManager;
-    private ConfigManager configManager;
-    private TreasureManager treasureManager;
+    @Inject private OnTreasureCraft onTreasureCraft;
+    @Inject private OnTreasureHold onTreasureHold;
 
     @Override
     public void onEnable() {
         saveDefaultConfig();
+        setupBinderModule();
 
-        setupCustomRecipes();
-        setupToED();
+        registerRecipes();
         registerListeners();
     }
 
-    private void setupToED() {
-        this.fileManager = new FileManager(this);
-        this.configManager = new ConfigManager(this);
-        this.treasureManager = new TreasureManager(this);
+    private void setupBinderModule() {
+        BinderModule module = new BinderModule(this);
+        Injector injector = module.createInjector();
+        injector.injectMembers(this);
+
+        ConfigManager configManager = new ConfigManager(this, injector.getInstance(FileManager.class));
+        TreasureManager treasureManager = new TreasureManager(this, configManager);
+
+        injector.injectMembers(configManager);
+        injector.injectMembers(treasureManager);
     }
 
-    private void setupCustomRecipes() {
+    private void registerRecipes() {
         Bukkit.addRecipe(Utilities.treasureOfElDoradoRecipe());
     }
 
     private void registerListeners() {
         PluginManager pm = Bukkit.getPluginManager();
-        pm.registerEvents(new OnTreasureCraft(this), this);
-        pm.registerEvents(new OnTreasureHold(this), this);
+        pm.registerEvents(this.onTreasureCraft, this);
+        pm.registerEvents(this.onTreasureHold, this);
     }
-
-
-    public FileManager getFileManager() { return this.fileManager; }
-    public ConfigManager getConfigManager() { return this.configManager; }
-    public TreasureManager getTreasureManager() { return this.treasureManager; }
 }
