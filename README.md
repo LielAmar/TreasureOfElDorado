@@ -1,7 +1,7 @@
 # Treasure of El Dorado
 
-[<img alt="discord" src="https://lielamar.com/plugins/github_discord.png" size=1.5>](https://discord.gg/NzgBrqR)
-<br>
+[![Discord](https://img.shields.io/discord/416652224505184276?color=%235865F2&label=Join%20My%20Discord)](https://discord.gg/NzgBrqR)
+[![Spigot](https://img.shields.io/badge/dynamic/json?color=yellow&label=Check%20it%20on%20Spigot&query=downloads&suffix=%20Downloads&url=https%3A%2F%2Fapi.spiget.org%2Fv2%2Fresources%2F87705)](https://www.spigotmc.org/resources/87705/)
 
 ## Information
 Treasure of El Dorado is an item in Hypixel's UHC Gamemode.
